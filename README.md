@@ -5,13 +5,19 @@ The Scuba Project is a database-driven web application designed to manage scuba 
 ## Technical Details
 Language: Python  
 Framework: Flask  
-DB Connectivity: pyodbc  
-Database: MSSQL
+Connectivity: pyodbc  
+Database: LocalDB
 
 ## Logical Database Model
 <img width="832" height="1052" alt="Scuba ERD" src="https://github.com/user-attachments/assets/5c4969ff-a211-46ea-a401-36cb852889cc" />
 
 ## Project Setup
+Download:
+- Python 3.15/3.16 - https://www.python.org/downloads/
+- SQL Server Express LocalDB - https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver17
+- ODBC Driver for SQL Server - https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver17
+
+Steup Commands:
 ```
   git clone <repo-url>
   cd 560-Scuba-Project
@@ -19,28 +25,28 @@ Database: MSSQL
   venv\Scripts\activate
   pip install Flask pyodbc
 ```
+
 ## Database Setup
 Database script are located in:
 ```
   database/
+    create_database.sql
     schema.sql
     seed_data.sql
 ```
-Running scripts in VS Code:
-Install SQL Server (mssql) extension
-1. Press: Ctrl-Shift-P
-2. Select: MS SQL: Connect
-3. Enter Connection Details:  
-Server: localhost  
-Authentication: Windows Authentication  
-Database:  
-5. Create Database: Run database/schema.sql
-6. Insert Sample Data: Run database/seed_data.sql
+Running SQL scripts in VS Code:
+1. Install: SQL Server (mssql) extension
+2. Press: Ctrl-Shift-P
+3. Select: MS SQL: Connect
+4. Create Database: Run create_database.sql
+5. Setup Database Schema: Run schema.sql
+6. Insert Sample Data: Run seed_data.sql
+
 ## Running Application
 ```
   python app.py
 ```
-Open browser and navigate to:
+Open browser and navigate to (Terminal generates link to click):
 ```
   http://localhost:5000
 ```
@@ -56,3 +62,7 @@ All development should follow this workflow:
 - Run schema.sql if database changes occur
 - Run seed_data.sql if new sample data is added
 - Run the Flask application locally
+- Create local feature-branch
+- Commit changes on feature-branch
+- Push feature branch to remote
+- Create Pull Request in GitHub
