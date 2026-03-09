@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scuba Divers</title>
+</head>
+<body>
+    <h1>Scuba Divers</h1>
+    {% if divers %}
+        <table border="1" cellpadding="5">
+            <tr>
+                {% for col in divers[0].cursor_description %}
+                    <th>{{ col[0] }}</th>
+                {% endfor %}
+            </tr>
+            {% for diver in divers %}
+            <tr>
+                {% for value in diver %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No divers found in the database.</p>
+    {% endif %}
+</body>
+</html>
