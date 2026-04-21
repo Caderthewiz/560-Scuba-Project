@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% block title %}Analytics — ScubaDB{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1 class="page-title">Analytics</h1>
+  <span class="page-tag">5 Aggregate Queries</span>
+</div>
+
+<!-- ── Query 1: Diver Dive Profiles ─────────────────────── -->
+<section class="analytics-block">
+  <div class="analytics-label">
+    <span class="query-num">01</span>
+    <div>
+      <h2>Diver Dive Profiles</h2>
+      <p>Total dives, average &amp; record depth, average bottom time, and total time underwater per diver.</p>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Diver</th><th>Total Dives</th><th>Avg Max Depth (ft)</th>
+          <th>Personal Record (ft)</th><th>Avg Bottom Time (min)</th><th>Total Bottom Time (min)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in diver_stats %}
+        <tr>
+          <td><strong>{{ r.Diver_Name }}</strong></td>
+          <td class="mono">{{ r.Total_Dives }}</td>
+          <td class="mono">{{ r.Avg_Max_Depth or '—' }}</td>
+          <td class="mono accent-val">{{ r.Personal_Record_Depth or '—' }}</td>
+          <td class="mono">{{ r.Avg_Bottom_Time or '—' }}</td>
+          <td class="mono">{{ r.Total_Bottom_Time or '—' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="empty">No dive data yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── Query 2: Instructor Certification Activity ────────── -->
+<section class="analytics-block">
+  <div class="analytics-label">
+    <span class="query-num">02</span>
+    <div>
+      <h2>Instructor Certification Activity</h2>
+      <p>Certifications issued, unique divers certified, and most recent certification date per instructor.</p>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Instructor</th><th>Agency</th><th>Certs Issued</th>
+          <th>Unique Divers</th><th>Most Recent</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in instructor_stats %}
+        <tr>
+          <td><strong>{{ r.Instructor_Name }}</strong></td>
+          <td><span class="badge">{{ r.Agency_Name }}</span></td>
+          <td class="mono accent-val">{{ r.Certs_Issued }}</td>
+          <td class="mono">{{ r.Unique_Divers_Certified }}</td>
+          <td>{{ r.Most_Recent_Cert or '—' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="empty">No data yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── Query 3: Dive Site Popularity ─────────────────────── -->
+<section class="analytics-block">
+  <div class="analytics-label">
+    <span class="query-num">03</span>
+    <div>
+      <h2>Dive Site Popularity</h2>
+      <p>Visit count, average and deepest depth reached, and average bottom time per site.</p>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Site</th><th>Location</th><th>Total Dives</th>
+          <th>Avg Depth (ft)</th><th>Deepest Dive (ft)</th><th>Avg Bottom Time (min)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in site_stats %}
+        <tr>
+          <td><strong>{{ r.Site_Name }}</strong></td>
+          <td>{{ r.Location or '—' }}</td>
+          <td class="mono accent-val">{{ r.Total_Dives }}</td>
+          <td class="mono">{{ r.Avg_Max_Depth or '—' }}</td>
+          <td class="mono">{{ r.Deepest_Dive or '—' }}</td>
+          <td class="mono">{{ r.Avg_Bottom_Time or '—' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="empty">No site data yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── Query 4: Agency Reach ──────────────────────────────── -->
+<section class="analytics-block">
+  <div class="analytics-label">
+    <span class="query-num">04</span>
+    <div>
+      <h2>Certification Agency Reach</h2>
+      <p>Instructors affiliated, certifications offered, total certs issued, and unique divers certified per agency.</p>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Agency</th><th>Instructors</th><th>Certs Offered</th>
+          <th>Total Issued</th><th>Unique Divers</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in agency_stats %}
+        <tr>
+          <td><span class="badge">{{ r.Agency_Name }}</span></td>
+          <td class="mono">{{ r.Instructors }}</td>
+          <td class="mono">{{ r.Certs_Offered }}</td>
+          <td class="mono accent-val">{{ r.Total_Certs_Issued }}</td>
+          <td class="mono">{{ r.Unique_Divers_Certified }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="empty">No agency data yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── Query 5: Monthly Trend ─────────────────────────────── -->
+<section class="analytics-block">
+  <div class="analytics-label">
+    <span class="query-num">05</span>
+    <div>
+      <h2>Monthly Dive Activity Trend</h2>
+      <p>Month-by-month dive volume, unique divers active, average depth, and average bottom time.</p>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Month</th><th>Total Dives</th><th>Unique Divers</th>
+          <th>Avg Max Depth (ft)</th><th>Avg Bottom Time (min)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in monthly_trend %}
+        <tr>
+          <td class="mono"><strong>{{ r.Month_Label }}</strong></td>
+          <td class="mono accent-val">{{ r.Total_Dives }}</td>
+          <td class="mono">{{ r.Unique_Divers }}</td>
+          <td class="mono">{{ r.Avg_Max_Depth or '—' }}</td>
+          <td class="mono">{{ r.Avg_Bottom_Time or '—' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="empty">No dive activity yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock %}

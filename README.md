@@ -113,26 +113,26 @@ Steup Commands:
 Database script are located in:
 ```
   database/
-    create_database.sql
+    create_datebase.sql
     schema.sql
     seed_data.sql
 ```
-Running SQL scripts in VS Code:
-1. Install: SQL Server (mssql) extension
-2. Press: Ctrl-Shift-P
-3. Select: MS SQL: Connect
-4. Create Database: Run create_database.sql
-5. Setup Database Schema: Run schema.sql
+Running scripts in VS Code:
+Install SQL Server (mssql) extension
+1. Press: Ctrl-Shift-P
+2. Select: MS SQL: Connect
+3. Enter Connection Details:  
+Server: localhost  
+Authentication: Windows Authentication  
+Database:  
+5. Create Database: Run create_database.sql
+6. Create Schema: Run schema.sql
 6. Insert Sample Data: Run seed_data.sql
-
 ## Running Application
 ```
   python app.py
 ```
-Open browser and navigate to (Terminal generates link to click):
-```
-  http://localhost:5000
-```
+Terminal outputs local URL
 
 ## Collaboration Notes
 The database runs locally for each team member:
@@ -142,10 +142,10 @@ The database runs locally for each team member:
 
 All development should follow this workflow:
 - Pull latest code from GitHub
-- Run schema.sql if database changes occur
-- Run seed_data.sql if new sample data is added
+- Checkout feature branch
+- Run all database scripts to ensure updated data
 - Run the Flask application locally
-- Create local feature-branch
-- Commit changes on feature-branch
+- Implement feature
+- Commit changes
 - Push feature branch to remote
-- Create Pull Request in GitHub
+- Create PR

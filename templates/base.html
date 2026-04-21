@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}ScubaDB{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="{{ url_for('index') }}" class="brand">
+      <span class="brand-hex">⬡</span>
+      <span>SCUBA<strong>DB</strong></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('divers') }}"         class="nav-link {% if 'diver' in (request.endpoint or '') %}active{% endif %}">Divers</a></li>
+      <li><a href="{{ url_for('dive_logs') }}"      class="nav-link {% if 'dive_log' in (request.endpoint or '') %}active{% endif %}">Dive Logs</a></li>
+      <li><a href="{{ url_for('dive_sites') }}"     class="nav-link {% if 'dive_site' in (request.endpoint or '') %}active{% endif %}">Sites</a></li>
+      <li><a href="{{ url_for('certifications') }}" class="nav-link {% if 'certif' in (request.endpoint or '') %}active{% endif %}">Certifications</a></li>
+      <li><a href="{{ url_for('analytics') }}"      class="nav-link nav-analytics {% if request.endpoint == 'analytics' %}active{% endif %}">Analytics</a></li>
+    </ul>
+  </nav>
+
+  <main class="main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flashes">
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    ScubaDB &nbsp;·&nbsp; CIS 560 Database Design Project
+  </footer>
+
+</body>
+</html>

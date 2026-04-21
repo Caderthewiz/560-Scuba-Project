@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Dive Sites — ScubaDB{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1 class="page-title">Dive Sites</h1>
+  <a href="{{ url_for('dive_site_new') }}" class="btn btn-primary">+ Add Site</a>
+</div>
+
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th><th>Site Name</th><th>Location</th>
+        <th>Max Depth (ft)</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in sites %}
+      <tr>
+        <td class="mono muted">{{ s.Site_ID }}</td>
+        <td><strong>{{ s.Site_Name }}</strong></td>
+        <td>{{ s.Location or '—' }}</td>
+        <td class="mono">{{ s.Max_Depth or '—' }}</td>
+        <td class="actions">
+          <a href="{{ url_for('dive_site_edit', site_id=s.Site_ID) }}" class="btn btn-sm btn-ghost">Edit</a>
+          <form method="POST" action="{{ url_for('dive_site_delete', site_id=s.Site_ID) }}"
+                onsubmit="return confirm('Remove this dive site?')">
+            <button class="btn btn-sm btn-danger">Remove</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="empty">No dive sites found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Issue Certification — ScubaDB{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1 class="page-title">Issue Certification</h1>
+  <a href="{{ url_for('certifications') }}" class="btn btn-ghost">← Back</a>
+</div>
+
+<div class="form-card">
+  <form method="POST">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Diver <span class="req">*</span></label>
+        <select name="diver_id" required>
+          <option value="">— select diver —</option>
+          {% for d in divers %}
+          <option value="{{ d.Diver_ID }}">{{ d.full_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Certification <span class="req">*</span></label>
+        <select name="certification_id" required>
+          <option value="">— select certification —</option>
+          {% for c in certifications_list %}
+          <option value="{{ c.Certification_ID }}">{{ c.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Instructor</label>
+        <select name="instructor_id">
+          <option value="">— select instructor —</option>
+          {% for i in instructors %}
+          <option value="{{ i.Instructor_ID }}">{{ i.full_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Certification Number</label>
+        <input type="text" name="certification_number" />
+      </div>
+      <div class="form-group">
+        <label>Date Issued</label>
+        <input type="date" name="date_issued" />
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Issue Certification</button>
+      <a href="{{ url_for('certifications') }}" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
