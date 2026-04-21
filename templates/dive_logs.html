@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Dive Logs — ScubaDB{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1 class="page-title">Dive Logs</h1>
+  <a href="{{ url_for('dive_log_new') }}" class="btn btn-primary">+ Log a Dive</a>
+</div>
+
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th><th>Diver</th><th>Date</th><th>Site</th>
+        <th>Dive #</th><th>Max Depth (ft)</th><th>Bottom Time (min)</th>
+        <th>Surface Interval (min)</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in logs %}
+      <tr>
+        <td class="mono muted">{{ log.Dive_ID }}</td>
+        <td><strong>{{ log.Diver_Name }}</strong></td>
+        <td>{{ log.Session_Date }}</td>
+        <td>{{ log.Site_Name }}</td>
+        <td class="mono">{{ log.Dive_Number or '—' }}</td>
+        <td class="mono">{{ log.Max_Depth or '—' }}</td>
+        <td class="mono">{{ log.Bottom_Time or '—' }}</td>
+        <td class="mono">{{ log.Surface_Interval or '—' }}</td>
+        <td class="actions">
+          <form method="POST" action="{{ url_for('dive_log_delete', dive_id=log.Dive_ID) }}"
+                onsubmit="return confirm('Delete this log entry?')">
+            <button class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="9" class="empty">No dives logged yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

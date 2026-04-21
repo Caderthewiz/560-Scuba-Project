@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Certifications — ScubaDB{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1 class="page-title">Certifications</h1>
+  <a href="{{ url_for('certification_new') }}" class="btn btn-primary">+ Issue Cert</a>
+</div>
+
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Cert #</th><th>Diver</th><th>Certification</th><th>Agency</th>
+        <th>Instructor</th><th>Date Issued</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in certs %}
+      <tr>
+        <td class="mono">{{ c.Certification_Number or '—' }}</td>
+        <td><strong>{{ c.Diver_Name }}</strong></td>
+        <td>{{ c.Certification_Name }}</td>
+        <td><span class="badge">{{ c.Agency_Name }}</span></td>
+        <td>{{ c.Instructor_Name or '—' }}</td>
+        <td>{{ c.Date_Issued or '—' }}</td>
+        <td class="actions">
+          <form method="POST"
+                action="{{ url_for('certification_delete', cert_id=c.Diver_Certification_ID) }}"
+                onsubmit="return confirm('Delete this certification record?')">
+            <button class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7" class="empty">No certifications found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

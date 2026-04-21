@@ -1,28 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Scuba Divers</title>
-</head>
-<body>
-    <h1>Scuba Divers</h1>
-    {% if divers %}
-        <table border="1" cellpadding="5">
-            <tr>
-                {% for col in divers[0].cursor_description %}
-                    <th>{{ col[0] }}</th>
-                {% endfor %}
-            </tr>
-            {% for diver in divers %}
-            <tr>
-                {% for value in diver %}
-                    <td>{{ value }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>No divers found in the database.</p>
-    {% endif %}
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}ScubaDB — Home{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <p class="hero-eyebrow">Dive Management System</p>
+  <h1 class="hero-title">SCUBA<span class="accent">DB</span></h1>
+  <p class="hero-sub">Track divers, certifications, sites, and every dive in one place.</p>
+</section>
+
+<section class="stats-row">
+  <a href="{{ url_for('divers') }}" class="stat-card">
+    <span class="stat-icon">🤿</span>
+    <span class="stat-num">{{ stats.divers }}</span>
+    <span class="stat-lbl">Divers</span>
+  </a>
+  <a href="{{ url_for('dive_logs') }}" class="stat-card">
+    <span class="stat-icon">📋</span>
+    <span class="stat-num">{{ stats.dives }}</span>
+    <span class="stat-lbl">Dives Logged</span>
+  </a>
+  <a href="{{ url_for('dive_sites') }}" class="stat-card">
+    <span class="stat-icon">🗺️</span>
+    <span class="stat-num">{{ stats.sites }}</span>
+    <span class="stat-lbl">Dive Sites</span>
+  </a>
+  <a href="{{ url_for('certifications') }}" class="stat-card">
+    <span class="stat-icon">🏅</span>
+    <span class="stat-num">{{ stats.certifications }}</span>
+    <span class="stat-lbl">Certifications</span>
+  </a>
+</section>
+
+<section class="quick-section">
+  <p class="section-label">Quick Actions</p>
+  <div class="quick-row">
+    <a href="{{ url_for('diver_new') }}"        class="quick-btn">+ New Diver</a>
+    <a href="{{ url_for('dive_log_new') }}"     class="quick-btn">+ Log a Dive</a>
+    <a href="{{ url_for('dive_site_new') }}"    class="quick-btn">+ Add Site</a>
+    <a href="{{ url_for('certification_new') }}" class="quick-btn">+ Issue Cert</a>
+    <a href="{{ url_for('analytics') }}"        class="quick-btn quick-btn-analytics">📊 Analytics</a>
+  </div>
+</section>
+
+{% endblock %}

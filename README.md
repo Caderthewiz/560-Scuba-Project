@@ -23,6 +23,7 @@ Database: MSSQL
 Database script are located in:
 ```
   database/
+    create_datebase.sql
     schema.sql
     seed_data.sql
 ```
@@ -34,16 +35,14 @@ Install SQL Server (mssql) extension
 Server: localhost  
 Authentication: Windows Authentication  
 Database:  
-5. Create Database: Run database/schema.sql
-6. Insert Sample Data: Run database/seed_data.sql
+5. Create Database: Run create_database.sql
+6. Create Schema: Run schema.sql
+6. Insert Sample Data: Run seed_data.sql
 ## Running Application
 ```
   python app.py
 ```
-Open browser and navigate to:
-```
-  http://localhost:5000
-```
+Terminal outputs local URL
 
 ## Collaboration Notes
 The database runs locally for each team member:
@@ -53,6 +52,10 @@ The database runs locally for each team member:
 
 All development should follow this workflow:
 - Pull latest code from GitHub
-- Run schema.sql if database changes occur
-- Run seed_data.sql if new sample data is added
+- Checkout feature branch
+- Run all database scripts to ensure updated data
 - Run the Flask application locally
+- Implement feature
+- Commit changes
+- Push feature branch to remote
+- Create PR

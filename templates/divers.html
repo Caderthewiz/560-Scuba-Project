@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Divers — ScubaDB{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1 class="page-title">Divers</h1>
+  <a href="{{ url_for('diver_new') }}" class="btn btn-primary">+ Add Diver</a>
+</div>
+
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th><th>Name</th><th>Date of Birth</th>
+        <th>Email</th><th>Phone</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in divers %}
+      <tr>
+        <td class="mono muted">{{ d.Diver_ID }}</td>
+        <td><strong>{{ d.First_Name }} {{ d.Last_Name }}</strong></td>
+        <td>{{ d.Date_of_Birth or '—' }}</td>
+        <td>{{ d.Email or '—' }}</td>
+        <td class="mono">{{ d.Phone or '—' }}</td>
+        <td class="actions">
+          <a href="{{ url_for('diver_edit', diver_id=d.Diver_ID) }}" class="btn btn-sm btn-ghost">Edit</a>
+          <form method="POST" action="{{ url_for('diver_delete', diver_id=d.Diver_ID) }}"
+                onsubmit="return confirm('Soft-delete this diver?')">
+            <button class="btn btn-sm btn-danger">Remove</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6" class="empty">No divers found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
