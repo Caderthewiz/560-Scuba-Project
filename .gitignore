@@ -1,16 +1,50 @@
-# Python virtual environment
+# Virtual environments
 venv/
-.env/
+env/
+ENV/
+.venv/
 
-# Python cache / compiled files
+# Python cache
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 
-# Flask cache
+# Build files
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Flask
 instance/
+.webassets-cache/
 
-# Environment variables / secrets
+# Environment variables
 .env
 .env.*
+*.env
+
+# Database files
+*.mdf
+*.ldf
+*.db
+*.sqlite3
+*.bak
+
+# Logs / temp
+*.log
+*.tmp
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
