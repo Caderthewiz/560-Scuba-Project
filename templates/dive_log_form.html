@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Log a Dive — ScubaDB{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1 class="page-title">Log a Dive</h1>
+  <a href="{{ url_for('dive_logs') }}" class="btn btn-ghost">← Back</a>
+</div>
+
+<div class="form-card">
+  <form method="POST">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Diver <span class="req">*</span></label>
+        <select name="diver_id" required>
+          <option value="">(select diver)</option>
+          {% for d in divers %}
+          <option value="{{ d.Diver_ID }}">{{ d.full_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Session Date <span class="req">*</span></label>
+        <input type="date" name="session_date" required />
+      </div>
+
+      <div class="form-group">
+        <label>Surface Interval (min)</label>
+        <input type="number" name="surface_interval" min="0" step="1" />
+      </div>
+
+      <div class="form-group">
+        <label>Dive Site <span class="req">*</span></label>
+        <select name="site_id" required>
+          <option value="">(select site)</option>
+          {% for s in sites %}
+          <option value="{{ s.Site_ID }}">{{ s.Site_Name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Dive Number</label>
+        <input type="number" name="dive_number" min="1" step="1" value="1" />
+      </div>
+
+      <div class="form-group">
+        <label>Max Depth (ft)</label>
+        <input type="number" name="max_depth" min="0" step="0.1" />
+      </div>
+
+      <div class="form-group">
+        <label>Bottom Time (min)</label>
+        <input type="number" name="bottom_time" min="0" step="1" />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Save Dive Log</button>
+      <a href="{{ url_for('dive_logs') }}" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
