@@ -17,8 +17,8 @@ Database: LocalDB
 | Divers                        | ✔      | ✔      | ✔      | ✔      |
 | DiveSession                   | ✔      | ✔      |        | ✔      |
 | DiveLog                       | ✔      | ✔      |        | ✔      |
-| DiveSites                     | ✔      |        |        |        |
-| Certifications                | ✔      | ✔      |        |        |
+| DiveSites                     | ✔      | ✔      | ✔      | ✔      |
+| Certifications                | ✔      | ✔      |        | ✔      |
 | Instructors                   | ✔      | ✔      | ✔      | ✔      |
 | CertificationAgencies         | ✔      |        |        |        |
 
